@@ -1,0 +1,20 @@
+---
+- name: manage wordlpress sql
+  hosts: server
+  tasks: 
+    - name: Create database user with name 'admin' and password 'abc' with all database privileges
+      mysql_user:
+        name: root
+        password: abc
+        priv: '*.*:ALL'
+        state: present
+    - name: copy script to dest
+      copy:
+        src: ./script.sql
+        dest: /tmp/script.sql
+        backup: yes
+    - name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
+      mysql_db:
+        state: import
+        name: all
+        target: /tmp/script.sql

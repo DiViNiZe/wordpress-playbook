@@ -1,0 +1,17 @@
+---
+- name: start service
+  hosts: server
+  tasks:
+    - service:
+        name: httpd
+        state: started
+        enabled: yes
+    - service: 
+        name: mariadb
+        state: started
+        enabled: yes
+    - firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true

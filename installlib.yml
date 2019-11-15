@@ -1,0 +1,22 @@
+---
+- name: install all dependecy
+  hosts: server
+  tasks:
+    - yum:
+        name: "{{item}}"
+        state: present
+      loop:
+        - httpd
+        - mariadb
+        - mariadb-server
+        - php
+        - php-common
+        - php-mysql
+        - php-gd
+        - php-xml
+        - php-mbstring
+        - php-mcrypt
+        - php-xmlrpc
+        - unzip
+        - wget
+        - MySQL-python

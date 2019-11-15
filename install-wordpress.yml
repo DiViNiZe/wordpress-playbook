@@ -1,0 +1,29 @@
+---
+- name: install wordpress 
+  hosts: server
+  tasks:
+    - get_url:
+        url: https://wordpress.org/wordpress-5.0.tar.gz
+        dest: /etc
+    - unarchive:
+        src: /etc/wordpress-5.0.tar.gz
+        dest: /var/www/html/.
+        remote_src: yes
+    -  file:
+         path: /var/www/html/wordpress
+         owner: apache
+         group: apache
+         mode: 0755
+    - file:
+         path: /var/www/html/wordpress/wp-content/uploads
+         owner: apache
+         group: apache
+         recurse: yes
+    - copy:
+        src: /var/www/html/wordpress/wp-config-sample.php 
+        dest: /var/www/html/wordpress/wp-config.php
+        remote_src: no
+    - lineinfile:
+        path: /var/www/html/wordpress/wp-config.php
+        state: present
+         
