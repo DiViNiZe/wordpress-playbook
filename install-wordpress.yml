@@ -22,8 +22,9 @@
     - copy:
         src: /var/www/html/wordpress/wp-config-sample.php 
         dest: /var/www/html/wordpress/wp-config.php
-        remote_src: no
+        remote_src: yes
     - lineinfile:
         path: /var/www/html/wordpress/wp-config.php
         state: present
-         
+        regexp: "^%define('DB_USER', 'username_here')"
+        line: "%define('DB_USER', 'wordpress')"
